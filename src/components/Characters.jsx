@@ -4,7 +4,7 @@ import Character from './Character';
 
 export default function Characters() {
     
-    const [page, setPage] = useState(42);
+    const [page, setPage] = useState(1);
 
     const fetchCharacters = async ({queryKey}) => {
         const response = await fetch(
@@ -13,12 +13,18 @@ export default function Characters() {
         return response.json();
     }; 
 
-    const {data, status} =  useQuery(["characters", page], fetchCharacters);
+    const {data, status, isError, isLoading} =  useQuery(
+        ["characters", page], 
+        fetchCharacters, 
+        {
+            keepPreviousData: true
+        }
+        );
 
-    if (status === "loading" ) {
+    if ( isLoading ) {
         return <div>Loading..</div>
     }
-    if (status === "error" ) {
+    if ( isError ) {
         return <div>Error..</div>
     }
 
