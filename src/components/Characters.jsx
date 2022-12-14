@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import Character from './Character';
 
 export default function Characters() {
     
@@ -18,9 +19,9 @@ export default function Characters() {
     }
 
     return (
-        <div>
+        <div className='characters'>
             {data.results.map((character) => (
-                <div>{character.name}</div>
+                <Character character ={character}/>
             ))}
         </div>
     )
